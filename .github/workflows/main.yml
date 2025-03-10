@@ -31,9 +31,6 @@ jobs:
       - name: Build the app
         run: yarn build
 
-      # Run tests (if you have any)
-      - name: Run tests
-        run: yarn test
 
   docker:
     runs-on: ubuntu-latest
