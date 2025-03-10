@@ -1,32 +1,15 @@
-# Use a Node.js runtime as the base image  
-FROM node:18-alpine AS builder  
+FROM node:18-alpine
 
-# Set the working directory in the container  
-WORKDIR /app  
+WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory  
-COPY package*.json ./  
+COPY package.json yarn.lock* ./
 
-# Install dependencies  
-RUN npm install  
+RUN yarn install --frozen-lockfile
 
-# Copy the rest of the application code to the working directory  
-COPY . .  
+COPY . .
 
-# Build the React application  
-RUN npm run build  
+RUN yarn build
 
-# Stage 2: Serve the application using a lightweight server (e.g., nginx)  
-FROM nginx:alpine  
+EXPOSE 5173
 
-# Copy the built React application from the builder stage  
-COPY --from=builder /app/dist /usr/share/nginx/html  
-
-# Copy the nginx configuration file (optional, see below)  
-COPY nginx.conf /etc/nginx/conf.d/default.conf  
-
-# Expose port 80 (or the port you configure nginx to listen on)  
-EXPOSE 80  
-
-# Command to start nginx  
-CMD ["nginx", "-g", "daemon off;"]  
+CMD ["yarn", "dev"]
