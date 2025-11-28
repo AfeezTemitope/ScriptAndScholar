@@ -8,7 +8,7 @@ import ScriptAndScholars from "../scriptAndScholars/ScriptAndScholars";
 
 const Home: React.FC = () => {
     return (
-        <div style={{ padding: '0 1rem', margin: '1rem auto', maxWidth: '1200px', justifyContent: 'center', alignItems: 'center' }}>
+        <div>
             <NavBar />
             <ScriptAndScholars />
             <About />
